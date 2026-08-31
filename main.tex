@@ -1,0 +1,63 @@
+\documentclass{article}
+
+\usepackage[a4paper]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[noend]{algpseudocode}
+\usepackage{amsthm}
+\usepackage{colortbl}
+\usepackage{graphicx}
+\usepackage{lineno}
+\usepackage[textwidth=4cm]{todonotes}
+
+\usepackage[backend=biber]{biblatex}
+\addbibresource{references.bib}
+
+\geometry{left=3cm, right=6cm, top=3cm, bottom=3cm, marginparwidth=4cm} 
+
+\linenumbers
+
+\setuptodonotes{noline, color=green!15, size=\scriptsize}
+
+\newtheorem*{exercise}{Exercise}
+\newcommand{\grey}{\cellcolor{black!25}}
+
+\title{Algorithms and Data Structures \\
+  Handin 1: Searching}
+
+\author{
+    202605673 Lukas Alstrup \\
+    202605116 Thomas Seeberg Hansen \\
+    202606296 Frederik Dommer Løvbjerg Plum
+}
+
+\date{August 31, 2026}
+
+\begin{document}
+
+\maketitle
+\begin{exercise}[Searching]
+	Assume we have an infinite long increasing sequence of real values $x_1 < x_2 < x_3 < ...$ and we want to find the position of a real value
+	$y > x_1$ in this list. More specifically, we want to find the index $d$ where $x_{d - 1} < y \leq x_d$, i.e.
+	$x_d = y$ if $y$ is in the list, and otherwise $x_d$ is the successor of $y$ in the list. E.g. for the sequence $3,
+		5, 7, 9, 11, 17, 19, 23, 31, 33, 37, ...$ and $y = 11$ we have $d = 5$, since $y = x_5 = 11$, whereas for $y = 24$
+	we have $d = 9$, since $23 = x_8 \leq y \leq x_9 = 31$. We assume the sequence to be divergent, i.e. there
+	always exists such a $d$.
+	Describe an algorithm to find the index $d$, where the number of comparisons performed
+	between $y$ and the $x_is$ is a function of the final value of d. What is the most efficient algorithm
+	(fewest number of comparisons performed) you can find? Argue that your algorithm finds the
+	correct index d, such that either $y = x_d$ or $x_{d - 1} < y < x_d$. Analyze your algorithm — how many
+	comparisons does your algorithm perform as a function of $d$?
+	(This problem is intentionally open ended; it was studied by Bentley and Yao in 1976 \cite{BENTLEY197682} if
+	you are interested in the research on the problem).
+\end{exercise}
+
+\section*{Comment}
+
+\section*{Simple solution}
+
+\section*{Efficient solution}
+
+\printbibliography
+
+\end{document}
