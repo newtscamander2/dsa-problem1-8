@@ -58,7 +58,6 @@
 \section*{Simple solution}
 A simple (and quite effective) solution is to split the problem into two phases phase 1) determining $B \subseteq A$ using a "doubling" technique and phase 2) doing binary search on $B$.
 
-
 \subsection*{Phase 1. Exponential search / doubling}
 During the first phase we search $A$ in order to be able to determine a lower and upper boundary for the binary search. For this purpose an exponential search is used which iterates over the sequence $A$ by incrementing the index by double what it was in the previous iteration, hence making the range being searched exponentially larger on each iteration.
 We can express this by a variable $k$ which is used to track the amount of doublings that has been performed so far since the probe indices are a power of 2, $2^k$ for $k \in \{0, 1, 2, 3, ...\}$.
@@ -72,13 +71,6 @@ We can then take the binary logarithm
 \begin{equation}
 	\log_2{2^{k-1}} < \log_2{d} \leq \log_2{2^k} \iff k-1 < \log_2{d} \leq k \iff \lceil \log_2{d} \rceil = k
 \end{equation}
-
-
-
-
-
-
-\\
 
 \begin{center}
 	%\includegraphics[width=8cm]{whiteboard.jpg}
@@ -112,34 +104,6 @@ We can then take the binary logarithm
 	\end{tikzpicture}
 \end{center}
 
-
-
-
-To locate $d$ we use two phases:
-First doubling then binary search in the found interval.
-
-
-
-\subsection*{Phase 1: Doubling}
-Because the sequence is infinitly long, we must first use a doubling phase as binary search requires us to have an interval.
-
-We can express our sequence in the power of 2: $2^k$.
-
-
-
-\begin{equation}
-	\log_2{d}
-\end{equation}
-
-
-
-$3,5, 7, 9, 11, 17, 19, 23, 31, 33, 37, ...$ and $y = 11$ we have $d = 5$
-
-
-
-
-
-
 \begin{center}
 	\begin{minipage}{8.8cm}
 		\begin{algorithmic}
@@ -157,18 +121,9 @@ $3,5, 7, 9, 11, 17, 19, 23, 31, 33, 37, ...$ and $y = 11$ we have $d = 5$
 	\end{minipage}
 \end{center}
 
-
-
-
-
-
-
 \subsection*{Phase 1: Binary search}
 
-
 \section*{Efficient solution}
-
-Try $2^d$ in the first phase.
 
 \printbibliography
 
