@@ -72,6 +72,12 @@ We can then take the binary logarithm
 	\log_2{2^{k-1}} < \log_2{d} \leq \log_2{2^k} \iff k-1 < \log_2{d} \leq k \iff \lceil \log_2{d} \rceil = k
 \end{equation}
 
+
+\subsection*{Phase 2: Binary search}
+In the exponential search the value $k$ as a function of of $d$ is determined, and this marks the lower and upper bound that needs to be searched in the binary search.
+
+
+
 \begin{center}
 	%\includegraphics[width=8cm]{whiteboard.jpg}
 	\begin{tabular}{ccccccccccccc}
@@ -107,21 +113,26 @@ We can then take the binary logarithm
 \begin{center}
 	\begin{minipage}{8.8cm}
 		\begin{algorithmic}
-			\Procedure{FindSearchInterval}{$A[x_1,x_2,x_3,..., x_{\infty}], x$}
+			\Procedure{Search}{$A[x_1,x_2,x_3,..., x_{\infty}], x$}
 
-			upper = A[d]
-			lower = A[d-1]
+			\Comment{Phase 1. Exponential search}
 
+			\State{$lo, hi = 0, 0$}
+			\While{$hi < y$}
+			\State{$lo = hi$}
+			\State{$hi = hi \cdot 2$}
+			\EndWhile
 
-			%\While{x_d < y}
-			\State{d = 2 \cdot d}
+			\Comment{Phase 2. Binary search}
+			\State{}
+
 
 			\EndProcedure
 		\end{algorithmic}
 	\end{minipage}
 \end{center}
 
-\subsection*{Phase 1: Binary search}
+
 
 \section*{Efficient solution}
 
