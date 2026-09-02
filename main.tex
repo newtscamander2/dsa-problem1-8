@@ -9,6 +9,7 @@
 \usepackage{graphicx}
 \usepackage{lineno}
 \usepackage[textwidth=4cm]{todonotes}
+\usetikzlibrary{tikzmark}
 
 \usepackage[backend=biber]{biblatex}
 \addbibresource{references.bib}
@@ -55,8 +56,119 @@
 \section*{Comment}
 
 \section*{Simple solution}
+A simple (and quite effective) solution is to split the problem into two phases phase 1) determining $B \subseteq A$ using a "doubling" technique and phase 2) doing binary search on $B$.
+
+
+\subsection*{Phase 1. Exponential search / doubling}
+During the first phase we search $A$ in order to be able to determine a lower and upper boundary for the binary search. For this purpose an exponential search is used which iterates over the sequence $A$ by incrementing the index by double what it was in the previous iteration, hence making the range being searched exponentially larger on each iteration.
+We can express this by a variable $k$ which is used to track the amount of doublings that has been performed so far since the probe indices are a power of 2, $2^k$ for $k \in \{0, 1, 2, 3, ...\}$.
+The exponential search must continue until $y \leq 2^k$ which means that at that point $y > 2^{k-1}$.
+
+\begin{equation}
+	2^{k-1} < d \leq 2^{k}
+\end{equation}
+
+We can then take the binary logarithm
+\begin{equation}
+	\log_2{2^{k-1}} < \log_2{d} \leq \log_2{2^k} \iff k-1 < \log_2{d} \leq k \iff \lceil \log_2{d} \rceil = k
+\end{equation}
+
+
+
+
+
+
+\\
+
+\begin{center}
+	%\includegraphics[width=8cm]{whiteboard.jpg}
+	\begin{tabular}{ccccccccccccc}
+		                                     & 1 & 2 & 3 & 4 & 5            & 6 & 7 & 8 & 9 & 10 & 11 & $\infty$ \\
+		\cline{2-13}
+		$A$                                  &
+		\multicolumn{1}{|c|}{\tikzmark{a}3}  &
+		\multicolumn{1}{|c|}{\tikzmark{b}5}  &
+		\multicolumn{1}{|c|}{\tikzmark{c}7}  &
+		\multicolumn{1}{|c|}{\tikzmark{d}9}  &
+		\multicolumn{1}{|c|}{\tikzmark{e}11} &
+		\multicolumn{1}{|c|}{\tikzmark{f}17} &
+		\multicolumn{1}{|c|}{\tikzmark{g}19} &
+		\multicolumn{1}{|c|}{\tikzmark{h}23} &
+		\multicolumn{1}{|c|}{\tikzmark{i}31} &
+		\multicolumn{1}{|c|}{\tikzmark{j}33} &
+		\multicolumn{1}{|c|}{\tikzmark{k}37} &
+		\multicolumn{1}{|c|}{\tikzmark{l}...}                                                                    \\
+		\cline{2-13}
+
+		                                     &   &   &   &   & $\downarrow$                                      \\
+		                                     &   &   &   &   & y
+	\end{tabular}
+
+	\begin{tikzpicture}[ remember picture, overlay]
+		\draw [->,red] ([yshift=5ex]pic cs:a) [bend left] to ([yshift=5ex]pic cs:b);
+		\draw [->,red] ([yshift=5ex]pic cs:b) [bend left] to ([yshift=5ex]pic cs:d);
+		\draw [->,red] ([yshift=5ex]pic cs:d) [bend left] to ([yshift=5ex]pic cs:h);
+
+	\end{tikzpicture}
+\end{center}
+
+
+
+
+To locate $d$ we use two phases:
+First doubling then binary search in the found interval.
+
+
+
+\subsection*{Phase 1: Doubling}
+Because the sequence is infinitly long, we must first use a doubling phase as binary search requires us to have an interval.
+
+We can express our sequence in the power of 2: $2^k$.
+
+
+
+\begin{equation}
+	\log_2{d}
+\end{equation}
+
+
+
+$3,5, 7, 9, 11, 17, 19, 23, 31, 33, 37, ...$ and $y = 11$ we have $d = 5$
+
+
+
+
+
+
+\begin{center}
+	\begin{minipage}{8.8cm}
+		\begin{algorithmic}
+			\Procedure{FindSearchInterval}{$A[x_1,x_2,x_3,..., x_{\infty}], x$}
+
+			upper = A[d]
+			lower = A[d-1]
+
+
+			%\While{x_d < y}
+			\State{d = 2 \cdot d}
+
+			\EndProcedure
+		\end{algorithmic}
+	\end{minipage}
+\end{center}
+
+
+
+
+
+
+
+\subsection*{Phase 1: Binary search}
+
 
 \section*{Efficient solution}
+
+Try $2^d$ in the first phase.
 
 \printbibliography
 
