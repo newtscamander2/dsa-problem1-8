@@ -118,14 +118,25 @@ In the exponential search the value $k$ as a function of of $d$ is determined, a
 
 			\Comment{Phase 1. Exponential search}
 
-			\State{$lo, hi = 0, 0$}
-			\While{$hi < y$}
-			\State{$lo = hi$}
-			\State{$hi = hi \cdot 2$}
+			\State{$low, high = 0, 0$}
+			\While{$high < y$}
+			\State{$low = high$}
+			\State{$high = high \cdot 2$}
 			\EndWhile
 
 			\Comment{Phase 2. Binary search}
-			\State{}
+			\State{$high = high + 1$}
+			\While{$low < high$}
+			\State{$mid = \lfloor(high + low)/2\rfloor$}
+			\If{$x=A[mid]$}
+			\State{\Return{$mid$}}
+			\ElsIf{$x<A[mid]$}
+			\State{$high = mid$}
+			\ElsIf{$x>A[mid]$}
+			\State{$low = mid$}
+			\EndIf
+			\EndWhile
+			\State{\Return{$-1$}}
 
 
 			\EndProcedure
