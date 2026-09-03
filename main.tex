@@ -12,11 +12,12 @@
 \usetikzlibrary{tikzmark}
 
 \usepackage[backend=biber]{biblatex}
+\usepackage{tcolorbox}
+\tcbuselibrary{breakable}
+
 \addbibresource{references.bib}
 
 \geometry{left=3cm, right=6cm, top=3cm, bottom=3cm, marginparwidth=4cm} 
-
-\linenumbers
 
 \setuptodonotes{noline, color=green!15, size=\scriptsize}
 
@@ -133,10 +134,49 @@ In the exponential search the value $k$ as a function of of $d$ is determined, a
 \end{center}
 It follows that the efficiency of the algorithm is dependent on the index $d$ of our wanted element $y$. The two phases of our algorithm have different efficiencies. The index gotten from phase one is $2\cdot1\rightarrow2\cdot2\cdot2\rightarrow2\cdot2\cdot2$ which can be simplified to $2^k$ where $k$ is the number of iterations taken. Our algorithm checks for $d\leq2^k$ and we can therefore solve for $k$ using a logarithm $\log_2{d}\leq k$. The number of iterations given by index $d$ is therefore $\lceil \log_2{d}\rceil=k$.
 
-The second phase of our search is a binary search between the last index $2^{k-1}$ and the current index from phase 1 $2^{k}$. The interval size if therefore $2^{k} - 2^{k-1}$. From \textcite{SupplementaryADS} \textbf{Theorem 6} we know that the worst case optimality of binary search can be calculated from $\lceil\log_2{(n+1)}\rceil$ where $n = 2^k - 2^{k-1}$. We know from phase one that $k = \lceil \log_2{d}\rceil$, and therefore $n = 2^{\lceil \log_2{d}\rceil} - 2^{\lceil \log_2{d}\rceil-1}$
+The second phase of our search is a binary search between the last index $2^{k-1}$ and the current index from phase 1 $2^{k}$. The interval size if therefore $2^{k} - 2^{k-1}$. This can be simplified to $2^{k-1}$. From \textcite{SupplementaryADS} \textbf{Theorem 6} we know that the worst case optimality of binary search can be calculated from $\lceil\log_2{(n+1)}\rceil$ where $n = 2^{k-1}$. We know from phase one that $k = \lceil \log_2{d}\rceil$, and therefore $n = 2^{\lceil \log_2{d}\rceil-1}$
 
 We can now combine our two equations for iterations into one equation of how many iterations are run as a worst case as a function of $d$.
-$$f(d)=\lceil \log_2{(d)} \rceil + \lceil\log_2{(2^k - 2^{k-1}+1)}\rceil$$
+$$f(d)=\lceil \log_2{(d)} \rceil + \lceil\log_2{(2^{\lceil \log_2{d}\rceil-1}+1)}\rceil$$
+
+\noindent\begin{tcolorbox}[breakable, toprule at break=0pt,bottomrule at break=0pt, colback={blue!5!white}, colframe={black!70!white}, arc={0mm}]
+To verify that our function for calculating how many iterations are is correct we'll go through a simple example of the algorithm.
+
+In this example we'll use the table
+\begin{center}
+	%\includegraphics[width=8cm]{whiteboard.jpg}
+	\begin{tabular}{ccccccccccccc}
+		                                     & 1 & 2 & 3 & 4 & 5            & 6 & 7 & 8 & 9 & 10 & 11 & \\
+		\cline{2-12}                             &
+		\multicolumn{1}{|c|}{\tikzmark{a}3}  &
+		\multicolumn{1}{|c|}{\tikzmark{b}5}  &
+		\multicolumn{1}{|c|}{\tikzmark{c}7}  &
+		\multicolumn{1}{|c|}{\tikzmark{d}9}  &
+		\multicolumn{1}{|c|}{\tikzmark{e}11} &
+		\multicolumn{1}{|c|}{\tikzmark{f}17} &
+		\multicolumn{1}{|c|}{\tikzmark{g}19} &
+		\multicolumn{1}{|c|}{\tikzmark{h}23} &
+		\multicolumn{1}{|c|}{\tikzmark{i}31} &
+		\multicolumn{1}{|c|}{\tikzmark{j}33} &
+		\multicolumn{1}{|c|}{\tikzmark{k}37} \\
+		\cline{2-12}
+	\end{tabular}
+\end{center}
+and try to find the element $a = 19$
+
+We'll go through phase 1 first. In this phase we'll after every step check if the given element $y$ at the index $d$ is $\geq$ to the wanted element $a$. The phase 1 would then look like this:
+$$1 \rightarrow 2 \rightarrow 4 \rightarrow 8$$
+At $d = 8$ we see that $A[8] \geq 19$ and we are therefore finished with phase 1. We have so far run 4 iterations. We will now run phase 2 of the algorithm which is binary search. We'll perform the binary search between index 4 and index 8.
+
+In this binary search we start with the middle as index $6$. The element at index $6$ is less than our wanted element $a$ and index $6$ becomes our new low. The new middle is now index $7$. Index $7$'s value is $19$ which was exactly the value we're looking for.
+
+We've now performed $4$ iterations in phase 1 and $2$ iterations in phase 2. The total amount of iterations is therefore $6$.
+
+We can now  try to see what our function $f(d)$ returns for finding an element at index position $7$.
+$$f(7)=\lceil \log_2{(7)} \rceil + \lceil\log_2{(2^{\lceil \log_2{7}\rceil-1}+1)}\rceil = 6$$
+So our pratical work through of the problem and our equation match up at $6$ iterations!
+
+\end{tcolorbox}
 
 \section*{Efficient solution}
 
