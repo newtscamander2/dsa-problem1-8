@@ -5,6 +5,7 @@
 \usepackage[english]{babel}
 \usepackage[noend]{algpseudocode}
 \usepackage{amsthm}
+\usepackage{amsmath}
 \usepackage{colortbl}
 \usepackage{graphicx}
 \usepackage{lineno}
@@ -78,28 +79,27 @@ In this phase we find the subset of A in which y is located. This is done by dou
 \begin{center}
 	%\includegraphics[width=8cm]{whiteboard.jpg}
 	\begin{tabular}{ccccccccccccc}
-		                                     & 1 & 2 & 3 & 4 & 5            & 6 & 7 & 8 & 9 & 10 & 11 & $\infty$ \\
+		                                       & 1 & 2 & 3 & 4 & 5            & 6 & 7 & 8 & 9 & 10 & 11 & $\infty$ \\
 		\cline{2-13}
-		$A$                                  &
-		\multicolumn{1}{|c|}{\tikzmark{aa}3}  &
-		\multicolumn{1}{|c|}{\tikzmark{bb}5}  &
-		\multicolumn{1}{|c|}{\tikzmark{cc}7}  &
-		\multicolumn{1}{|c|}{\tikzmark{dd}9}  &
-		\multicolumn{1}{|c|}{\tikzmark{ee}11} &
-		\multicolumn{1}{|c|}{\tikzmark{ff}17} &
-		\multicolumn{1}{|c|}{\tikzmark{gg}19} &
-		\multicolumn{1}{|c|}{\tikzmark{hh}23} &
+		$A$                                    &
+		\multicolumn{1}{|c|}{\tikzmark{aa}3}   &
+		\multicolumn{1}{|c|}{\tikzmark{bb}5}   &
+		\multicolumn{1}{|c|}{\tikzmark{cc}7}   &
+		\multicolumn{1}{|c|}{\tikzmark{dd}9}   &
+		\multicolumn{1}{|c|}{\tikzmark{ee}11}  &
+		\multicolumn{1}{|c|}{\tikzmark{ff}17}  &
+		\multicolumn{1}{|c|}{\tikzmark{gg}19}  &
+		\multicolumn{1}{|c|}{\tikzmark{hh}23}  &
 		\multicolumn{1}{|c|}{\tikzmark{ii}931} &
-		\multicolumn{1}{|c|}{\tikzmark{jj}33} &
-		\multicolumn{1}{|c|}{\tikzmark{kk}37} &
-		\multicolumn{1}{|c|}{\tikzmark{ll}...}                                                                    \\
+		\multicolumn{1}{|c|}{\tikzmark{jj}33}  &
+		\multicolumn{1}{|c|}{\tikzmark{kk}37}  &
+		\multicolumn{1}{|c|}{\tikzmark{ll}...}                                                                     \\
 		\cline{2-13}
 
-		                                     &   &   &   &   & $\downarrow$                                      \\
-		                                     &   &   &   &   & y
+		                                       &   &   &   &   & $\downarrow$                                      \\
+		                                       &   &   &   &   & y
 	\end{tabular}
 
-	%These lines are really weird / show up wrong sometimes...
 	\begin{tikzpicture}[ remember picture, overlay]
 		\draw [->,red] ([yshift=5ex]pic cs:aa) [bend left] to ([yshift=5ex]pic cs:bb);
 		\draw [->,red] ([yshift=5ex]pic cs:bb) [bend left] to ([yshift=5ex]pic cs:dd);
@@ -108,9 +108,9 @@ In this phase we find the subset of A in which y is located. This is done by dou
 	\end{tikzpicture}
 \end{center}
 The mathematical invariant of our exponential search algorithm is
-\begin{center}
-$1 \leq i \leq i\cdot2 \wedge x_i < y$ for all $1 \leq i < d \wedge y < x_i$ {for all} $d < i$
-\end{center}
+\begin{equation}
+	1 \leq i \leq i\cdot2 \wedge x_i < y \ \text{for all} \ 1 \leq i < d \wedge y < x_i \ \text{for all} \ d < i
+\end{equation}
 
 The pseudo code for our exponential search can be written as
 \begin{center}
@@ -175,10 +175,10 @@ And our visual invariant for binary search would be
 		\multicolumn{1}{|c|}{\cellcolor{gray} \tikzmark{i}31} &
 		\multicolumn{1}{|c|}{\cellcolor{gray} \tikzmark{j}33} &
 		\multicolumn{1}{|c|}{\cellcolor{gray} \tikzmark{k}37} &
-		\multicolumn{1}{|c|}{\cellcolor{gray} \tikzmark{l}...}                                                                    \\
+		\multicolumn{1}{|c|}{\cellcolor{gray} \tikzmark{l}...}                                                               \\
 		\cline{2-13}
 
-		                                                      &   &   &   &   & $\downarrow$                                      \\
+		                                                      &   &   &   &   & $\downarrow$                                 \\
 		                                                      &   &   &   &   & y
 	\end{tabular}
 
