@@ -111,24 +111,31 @@ In this phase we find the subset of A in which y is located. This is done by dou
 	\end{tikzpicture}
 \end{center}
 
-
-\subsection*{Phase 2: Binary search}
-% In the exponential search the value $k$ as a function of of $d$ is determined, and this marks the lower and upper bound that needs to be searched in the binary search.
-
+The pseudo code for our doubling search can we written like this:
 \begin{center}
 	\begin{minipage}{8.8cm}
 		\begin{algorithmic}
-			\Procedure{Search}{$A[x_1,x_2,x_3,..., x_{\infty}], x$}
-
-			\Comment{Phase 1. Exponential search}
+			\Procedure{ExponentialSearch}{$A[x_1,x_2,x_3,..., x_{\infty}], x$}
 
 			\State{$low, high = 0, 0$}
 			\While{$high < y$}
 			\State{$low = high$}
 			\State{$high = high \cdot 2$}
 			\EndWhile
+			\EndProcedure
+		\end{algorithmic}
+	\end{minipage}
+\end{center}
 
-			\Comment{Phase 2. Binary search}
+\subsection*{Phase 2: Binary search}
+In phase 1 we found a subset $B$ whose largest element is greater or equal to $y$. We therefore know that if the element $y$ is contained in the infinite list $A$ then $B$ must contain it (because $A$ is a sorted list). We can therefore perform a binary search on $B$ and find $y$ if it is contained.
+% In the exponential search the value $k$ as a function of of $d$ is determined, and this marks the lower and upper bound that needs to be searched in the binary search.
+
+\begin{center}
+	\begin{minipage}{8.8cm}
+		\begin{algorithmic}
+			\Procedure{BinarySearch}{$B[x_1,x_2,x_3,..., x_n], x$}
+
 			\State{$high = high + 1$}
 			\While{$low < high$}
 			\State{$mid = \lfloor(high + low)/2\rfloor$}
@@ -141,7 +148,6 @@ In this phase we find the subset of A in which y is located. This is done by dou
 			\EndIf
 			\EndWhile
 			\State{\Return{$-1$}}
-
 
 			\EndProcedure
 		\end{algorithmic}
