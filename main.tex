@@ -111,8 +111,12 @@ In this phase we find the subset of A in which y is located. This is done by dou
 
 	\end{tikzpicture}
 \end{center}
+The mathematical invariant of our exponential search algorithm is
+\begin{center}
+$1 \leq i \leq i\cdot2 \wedge x_i < y$ for all $1 \leq i < d \wedge y < x_i$ {for all} $d < i$
+\end{center}
 
-The pseudo code for our exponential search can we written like this:
+The pseudo code for our exponential search can be written as
 \begin{center}
 	\begin{minipage}{8.8cm}
 		\begin{algorithmic}
