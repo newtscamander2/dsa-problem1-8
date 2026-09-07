@@ -62,7 +62,7 @@ A simple (and quite effective) solution is to split the problem into two phases 
 
 
 \subsection*{Phase 1. Exponential search / doubling}
-In this phase we find the subset of A in which y is located. This is done by doubling a search index $z$ until value of element at index $z$ is greater or equal to our desired value $y$.
+In this phase we find the subset of A in which y is located. This is done by doubling a search index $i$ until value of element at index $i$ is greater or equal to our desired value $y$.
 %Rewrite this
 % During the first phase we search $A$ in order to be able to determine a lower and upper boundary for the binary search. For this purpose an exponential search is used which iterates over the sequence $A$ by incrementing the index by double what it was in the previous iteration, hence making the range being searched exponentially larger on each iteration.
 % We can express this by a variable $k$ which is used to track the amount of doublings that has been performed so far since the probe indices are a power of 2, $2^k$ for $k \in \{0, 1, 2, 3, ...\}$.
@@ -111,17 +111,17 @@ In this phase we find the subset of A in which y is located. This is done by dou
 	\end{tikzpicture}
 \end{center}
 
-The pseudo code for our doubling search can we written like this:
+The pseudo code for our exponential search can we written like this:
 \begin{center}
 	\begin{minipage}{8.8cm}
 		\begin{algorithmic}
 			\Procedure{ExponentialSearch}{$A[x_1,x_2,x_3,..., x_{\infty}], x$}
 
-			\State{$low, high = 0, 0$}
-			\While{$high < y$}
-			\State{$low = high$}
-			\State{$high = high \cdot 2$}
+			\State{$i = 0$}
+			\While{$A[i] < y$}
+			\State{$i = i\cdot2$}
 			\EndWhile
+			\State{\Return{i}}
 			\EndProcedure
 		\end{algorithmic}
 	\end{minipage}
@@ -136,7 +136,8 @@ In phase 1 we found a subset $B$ whose largest element is greater or equal to $y
 		\begin{algorithmic}
 			\Procedure{BinarySearch}{$B[x_1,x_2,x_3,..., x_n], x$}
 
-			\State{$high = high + 1$}
+			\State{$low = 1$}
+			\State{$high = |B|+1$}
 			\While{$low < high$}
 			\State{$mid = \lfloor(high + low)/2\rfloor$}
 			\If{$x=A[mid]$}
@@ -153,6 +154,42 @@ In phase 1 we found a subset $B$ whose largest element is greater or equal to $y
 		\end{algorithmic}
 	\end{minipage}
 \end{center}
+
+\subsection*{The combined algorithm}
+Our combined pseudo code would be written as
+\begin{center}
+	\begin{minipage}{8.8cm}
+		\begin{algorithmic}
+			\Procedure{Search}{$A[x_1,x_2,x_3,..., x_{\infty}], x$}
+
+			\Comment{Phase 1. Exponential search}
+
+			\State{$low, high = 0, 0$}
+			\While{$high < y$}
+			\State{$low = high$}
+			\State{$high = high \cdot 2$}
+			\EndWhile
+
+			\Comment{Phase 2. Binary search}
+			\State{$high = high + 1$}
+			\While{$low < high$}
+			\State{$mid = \lfloor(high + low)/2\rfloor$}
+			\If{$x=A[mid]$}
+			\State{\Return{$mid$}}
+			\ElsIf{$x<A[mid]$}
+			\State{$high = mid$}
+			\ElsIf{$x>A[mid]$}
+			\State{$low = mid$}
+			\EndIf
+			\EndWhile
+			\State{\Return{$-1$}}
+
+
+			\EndProcedure
+		\end{algorithmic}
+	\end{minipage}
+\end{center}
+
 It follows that the efficiency of the algorithm is dependent on the index $d$ of our wanted element $y$. The two phases of our algorithm have different efficiencies. The index gotten from phase one is $2\cdot1\rightarrow2\cdot2\cdot2\rightarrow2\cdot2\cdot2$ which can be simplified to $2^k$ where $k$ is the number of iterations taken. Our algorithm checks for $d\leq2^k$ and we can therefore solve for $k$ using a logarithm $\log_2{d}\leq k$. The number of iterations given by index $d$ is therefore $\lceil \log_2{d}\rceil=k$.
 
 The second phase of our search is a binary search between the last index $2^{k-1}$ and the current index from phase 1 $2^{k}$. The interval size if therefore $2^{k} - 2^{k-1}$. This can be simplified to $2^{k-1}$. From \textcite{SupplementaryADS} \textbf{Theorem 6} we know that the worst case optimality of binary search can be calculated from $\lceil\log_2{(n+1)}\rceil$ where $n = 2^{k-1}$. We know from phase one that $k = \lceil \log_2{d}\rceil$, and therefore $n = 2^{\lceil \log_2{d}\rceil-1}$
