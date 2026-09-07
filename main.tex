@@ -57,7 +57,8 @@
 \section*{Comment}
 
 \section*{Simple solution}
-A simple (and quite effective) solution is to split the problem into two phases phase 1) determining a subset $B$ so $B \subseteq A$ using a "doubling" technique and phase 2) doing binary search on $B$.
+A simple (and quite effective) solution is to split the problem into two phases phase 1) determining a subset $B$ so $B \subseteq A$ using a exponential "doubling" technique and phase 2) doing binary search on $B$.
+
 
 
 
@@ -147,6 +148,36 @@ In this phase we find the subset of A in which y is located. This is done by dou
 		\end{algorithmic}
 	\end{minipage}
 \end{center}
+
+
+
+
+\begin{center}
+%\includegraphics[width=8cm]{whiteboard.jpg}
+\begin{tabular}{ccccccccccccc}
+	                                     & 1 & 2 & 3 & 4 & 5            & 6 & 7 & 8 & 9 & 10 & 11 & $\infty$ \\
+	\cline{2-13}
+	$A$                                  &
+	\multicolumn{1}{|c|}{\tikzmark{a}3}  &
+	\multicolumn{1}{|c|}{\tikzmark{b}5}  &
+	\multicolumn{1}{|c|}{\tikzmark{c}7}  &
+	\multicolumn{1}{|c|}{\tikzmark{d}9}  &
+	\multicolumn{1}{|c|}{\tikzmark{e}11} &
+	\multicolumn{1}{|c|}{\tikzmark{f}17} &
+	\multicolumn{1}{|c|}{\tikzmark{g}19} &
+	\multicolumn{1}{|c|}{\tikzmark{h}23} &
+	\multicolumn{1}{|c|}{\tikzmark{i}31} &
+	\multicolumn{1}{|c|}{\tikzmark{j}33} &
+	\multicolumn{1}{|c|}{\tikzmark{k}37} &
+	\multicolumn{1}{|c|}{\tikzmark{l}...}                                                                    \\
+	\cline{2-13}
+
+	                                     &   &   &   &   & $\downarrow$                                      \\
+	                                     &   &   &   &   & y
+\end{tabular}
+
+
+
 It follows that the efficiency of the algorithm is dependent on the index $d$ of our wanted element $y$. The two phases of our algorithm have different efficiencies. The index gotten from phase one is $2\cdot1\rightarrow2\cdot2\cdot2\rightarrow2\cdot2\cdot2$ which can be simplified to $2^k$ where $k$ is the number of iterations taken. Our algorithm checks for $d\leq2^k$ and we can therefore solve for $k$ using a logarithm $\log_2{d}\leq k$. The number of iterations given by index $d$ is therefore $\lceil \log_2{d}\rceil=k$.
 
 The second phase of our search is a binary search between the last index $2^{k-1}$ and the current index from phase 1 $2^{k}$. The interval size if therefore $2^{k} - 2^{k-1}$. This can be simplified to $2^{k-1}$. From \textcite{SupplementaryADS} \textbf{Theorem 6} we know that the worst case optimality of binary search can be calculated from $\lceil\log_2{(n+1)}\rceil$ where $n = 2^{k-1}$. We know from phase one that $k = \lceil \log_2{d}\rceil$, and therefore $n = 2^{\lceil \log_2{d}\rceil-1}$
