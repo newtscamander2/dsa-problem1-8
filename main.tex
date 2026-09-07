@@ -59,9 +59,6 @@
 \section*{Simple solution}
 A simple (and quite effective) solution is to split the problem into two phases phase 1) determining a subset $B$ so $B \subseteq A$ using a exponential "doubling" technique and phase 2) doing binary search on $B$.
 
-
-
-
 \subsection*{Phase 1. Exponential search / doubling}
 In this phase we find the subset of A in which y is located. This is done by doubling a search index $i$ until value of element at index $i$ is greater or equal to our desired value $y$.
 %Rewrite this
@@ -78,25 +75,24 @@ In this phase we find the subset of A in which y is located. This is done by dou
 % 	\log_2{2^{k-1}} < \log_2{d} \leq \log_2{2^k} \iff k-1 < \log_2{d} \leq k \iff \lceil \log_2{d} \rceil = k
 % \end{equation}
 
-
 \begin{center}
 	%\includegraphics[width=8cm]{whiteboard.jpg}
 	\begin{tabular}{ccccccccccccc}
 		                                     & 1 & 2 & 3 & 4 & 5            & 6 & 7 & 8 & 9 & 10 & 11 & $\infty$ \\
 		\cline{2-13}
 		$A$                                  &
-		\multicolumn{1}{|c|}{\tikzmark{a}3}  &
-		\multicolumn{1}{|c|}{\tikzmark{b}5}  &
-		\multicolumn{1}{|c|}{\tikzmark{c}7}  &
-		\multicolumn{1}{|c|}{\tikzmark{d}9}  &
-		\multicolumn{1}{|c|}{\tikzmark{e}11} &
-		\multicolumn{1}{|c|}{\tikzmark{f}17} &
-		\multicolumn{1}{|c|}{\tikzmark{g}19} &
-		\multicolumn{1}{|c|}{\tikzmark{h}23} &
-		\multicolumn{1}{|c|}{\tikzmark{i}31} &
-		\multicolumn{1}{|c|}{\tikzmark{j}33} &
-		\multicolumn{1}{|c|}{\tikzmark{k}37} &
-		\multicolumn{1}{|c|}{\tikzmark{l}...}                                                                    \\
+		\multicolumn{1}{|c|}{\tikzmark{aa}3}  &
+		\multicolumn{1}{|c|}{\tikzmark{bb}5}  &
+		\multicolumn{1}{|c|}{\tikzmark{cc}7}  &
+		\multicolumn{1}{|c|}{\tikzmark{dd}9}  &
+		\multicolumn{1}{|c|}{\tikzmark{ee}11} &
+		\multicolumn{1}{|c|}{\tikzmark{ff}17} &
+		\multicolumn{1}{|c|}{\tikzmark{gg}19} &
+		\multicolumn{1}{|c|}{\tikzmark{hh}23} &
+		\multicolumn{1}{|c|}{\tikzmark{ii}931} &
+		\multicolumn{1}{|c|}{\tikzmark{jj}33} &
+		\multicolumn{1}{|c|}{\tikzmark{kk}37} &
+		\multicolumn{1}{|c|}{\tikzmark{ll}...}                                                                    \\
 		\cline{2-13}
 
 		                                     &   &   &   &   & $\downarrow$                                      \\
@@ -105,9 +101,9 @@ In this phase we find the subset of A in which y is located. This is done by dou
 
 	%These lines are really weird / show up wrong sometimes...
 	\begin{tikzpicture}[ remember picture, overlay]
-		\draw [->,red] ([yshift=-2ex]pic cs:a) [bend left] to ([yshift=-2ex]pic cs:b);
-		\draw [->,red] ([yshift=-2ex]pic cs:b) [bend left] to ([yshift=-2ex]pic cs:d);
-		\draw [->,red] ([yshift=-2ex]pic cs:d) [bend left] to ([yshift=-2ex]pic cs:h);
+		\draw [->,red] ([yshift=5ex]pic cs:aa) [bend left] to ([yshift=5ex]pic cs:bb);
+		\draw [->,red] ([yshift=5ex]pic cs:bb) [bend left] to ([yshift=5ex]pic cs:dd);
+		\draw [->,red] ([yshift=5ex]pic cs:dd) [bend left] to ([yshift=5ex]pic cs:hh);
 
 	\end{tikzpicture}
 \end{center}
@@ -276,6 +272,7 @@ $$f(d)=\lceil \log_2{(d)} \rceil + \lceil\log_2{(2^{\lceil \log_2{d}\rceil-1}+1)
 \end{tcolorbox}
 
 \section*{Efficient solution}
+
 
 \printbibliography
 
