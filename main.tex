@@ -10,6 +10,7 @@
 \usepackage{graphicx}
 \usepackage{lineno}
 \usepackage[textwidth=4cm]{todonotes}
+\usepackage{changepage}
 \usetikzlibrary{tikzmark}
 
 \usepackage[backend=biber]{biblatex}
@@ -56,7 +57,7 @@
 \end{exercise}
 
 \section*{Comment}
-	To find a number in an infinitly long list, we search using binary search. But we don't know the upper bound, and we don't want to search the whole lower bound.
+	To find a number at index $d$ in an infinitely long list, we search using binary search. But we don't know the upper bound, and we don't want to search the whole lower bound.
 	So we make 2 phases of the search. Phase 1, we find a lower bound and upper bound for where the number must be. By exponentially increasing the search interval, so if the number is higher we keep increasing it.
 	Phase 2, we search the interval we found in phase 1 using
 	binary search.
@@ -192,8 +193,7 @@ And our visual invariant for binary search would be
 
 
 
-
-
+\newpage
 \subsection*{The combined algorithm}
 Our combined pseudo code would be written as
 \begin{center}
@@ -228,8 +228,6 @@ Our combined pseudo code would be written as
 		\end{algorithmic}
 	\end{minipage}
 \end{center}
-
-
 
 It follows that the efficiency of the algorithm is dependent on the index $d$ of our wanted element $y$. The two phases of our algorithm have different efficiencies. The index gotten from phase one is $2\cdot1\rightarrow2\cdot2\cdot2\rightarrow2\cdot2\cdot2$ which can be simplified to $2^k$ where $k$ is the number of iterations taken. Our algorithm checks for $d\leq2^k$ and we can therefore solve for $k$ using a logarithm $\log_2{d}\leq k$. The number of iterations given by index $d$ is therefore $\lceil \log_2{d}\rceil=k$.
 
