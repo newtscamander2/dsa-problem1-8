@@ -111,10 +111,10 @@ In this phase we find the subset of A in which y is located. This is done by dou
 
 	\end{tikzpicture}
 \end{center}
-The mathematical invariant of our exponential search algorithm is
-\begin{equation}
-	1 \leq i < i\cdot2 \wedge x_i < y \ \text{for all} \ 1 \leq i < d \wedge y < x_i \ \text{for all} \ d < i
-\end{equation}
+% The mathematical invariant of our exponential search algorithm is
+% \begin{equation}
+% 	1 \leq i < i\cdot2 \wedge x_i < y \ \text{for all} \ 1 \leq i < d \wedge y < x_i \ \text{for all} \ d < i
+% \end{equation}
 
 The pseudo code for our exponential search can be written as
 \begin{center}
@@ -122,7 +122,7 @@ The pseudo code for our exponential search can be written as
 		\begin{algorithmic}
 			\Procedure{ExponentialSearch}{$A[x_1,x_2,x_3,..., x_{\infty}], x$}
 
-			\State{$i = 0$}
+			\State{$i = 1$}
 			\While{$A[i] < y$}
 			\State{$i = i\cdot2$}
 			\EndWhile
@@ -131,6 +131,9 @@ The pseudo code for our exponential search can be written as
 		\end{algorithmic}
 	\end{minipage}
 \end{center}
+
+This algorithm works because our list $A$ is a sorted list, so when a element of the list is less than an element at index $i$, then our element must be present before $i$, if our element is contained in $A$.
+We have therefore with our algorithm found a subset of $A$ which is of finite length and we can therefore use a search algorithm such as binary search, which is much more performant that linear search.
 
 \subsection*{Phase 2: Binary search}
 In phase 1 we found a subset $B$ whose largest element is greater or equal to $y$. We therefore know that if the element $y$ is contained in the infinite list $A$ then $B$ must contain it (because $A$ is a sorted list). We can therefore perform a binary search on $B$ and find $y$ if it is contained.
