@@ -56,8 +56,9 @@
 \end{exercise}
 
 \section*{Comment}
-	To find a number in a infinitly long list, we search using binary search. But we don't know the upper bound, and we don't want to search the whole lower bound.
-	So we make 2 phases of the search. Phase 1, we find a lower bound and upper bound for where the number must be. Phase 2, we search the interval we found in phase 1 using
+	To find a number in an infinitly long list, we search using binary search. But we don't know the upper bound, and we don't want to search the whole lower bound.
+	So we make 2 phases of the search. Phase 1, we find a lower bound and upper bound for where the number must be. By exponentially increasing the search interval, so if the number is higher we keep increasing it.
+	Phase 2, we search the interval we found in phase 1 using
 	binary search.
 
 \section*{Simple solution}
