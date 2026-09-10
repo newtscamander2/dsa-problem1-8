@@ -69,7 +69,7 @@ A simple (and quite effective) solution to deal with the unknown upper bound cau
 \end{enumerate}
 
 \subsection*{Phase 1. Exponential search / doubling}
-In this phase we find the subset of A in which y is located. This is done by doubling a search index $i$ until value of element at index $i$ is greater or equal to our desired value $y$.
+In this phase we find the subset of $A$ in which $y$ is located. This is done by doubling a search index $i$ until value of element at index $i$ is greater or equal to our desired value $y$.
 
 
 
@@ -91,25 +91,25 @@ In this phase we find the subset of A in which y is located. This is done by dou
 \begin{center}
 	%\includegraphics[width=8cm]{whiteboard.jpg}
 	\begin{tabular}{ccccccccccccc}
-		                                       & 1 & 2 & 3 & 4 & 5            & 6 & 7 & 8 & 9 & 10 & 11 & $\infty$ \\
+		                                      & 1 & 2 & 3 & 4 & 5            & 6 & 7 & 8 & 9 & 10 & 11 & $\infty$ \\
 		\cline{2-13}
-		$A$                                    &
-		\multicolumn{1}{|c|}{\tikzmark{aa}3}   &
-		\multicolumn{1}{|c|}{\tikzmark{bb}5}   &
-		\multicolumn{1}{|c|}{\tikzmark{cc}7}   &
-		\multicolumn{1}{|c|}{\tikzmark{dd}9}   &
-		\multicolumn{1}{|c|}{\tikzmark{ee}11}  &
-		\multicolumn{1}{|c|}{\tikzmark{ff}17}  &
-		\multicolumn{1}{|c|}{\tikzmark{gg}19}  &
-		\multicolumn{1}{|c|}{\tikzmark{hh}23}  &
-		\multicolumn{1}{|c|}{\tikzmark{ii}931} &
-		\multicolumn{1}{|c|}{\tikzmark{jj}33}  &
-		\multicolumn{1}{|c|}{\tikzmark{kk}37}  &
-		\multicolumn{1}{|c|}{\tikzmark{ll}...}                                                                     \\
+		$A$                                   &
+		\multicolumn{1}{|c|}{\tikzmark{aa}3}  &
+		\multicolumn{1}{|c|}{\tikzmark{bb}5}  &
+		\multicolumn{1}{|c|}{\tikzmark{cc}7}  &
+		\multicolumn{1}{|c|}{\tikzmark{dd}9}  &
+		\multicolumn{1}{|c|}{\tikzmark{ee}11} &
+		\multicolumn{1}{|c|}{\tikzmark{ff}17} &
+		\multicolumn{1}{|c|}{\tikzmark{gg}19} &
+		\multicolumn{1}{|c|}{\tikzmark{hh}23} &
+		\multicolumn{1}{|c|}{\tikzmark{ii}31} &
+		\multicolumn{1}{|c|}{\tikzmark{jj}33} &
+		\multicolumn{1}{|c|}{\tikzmark{kk}37} &
+		\multicolumn{1}{|c|}{\tikzmark{ll}...}                                                                    \\
 		\cline{2-13}
 
-		                                       &   &   &   &   & $\downarrow$                                      \\
-		                                       &   &   &   &   & y
+		                                      &   &   &   &   & $\downarrow$                                      \\
+		                                      &   &   &   &   & y
 	\end{tabular}
 	\begin{tikzpicture}[ remember picture, overlay]
 		\draw [->,red] ([yshift=5ex]pic cs:aa) [bend left] to ([yshift=5ex]pic cs:bb);
@@ -123,6 +123,11 @@ In this phase we find the subset of A in which y is located. This is done by dou
 % 	1 \leq i < i\cdot2 \wedge x_i < y \ \text{for all} \ 1 \leq i < d \wedge y < x_i \ \text{for all} \ d < i
 % \end{equation}
 
+
+
+%
+% EXPONENTIAL SEARCH: PSEUDO CODE
+%
 The pseudo code for our exponential search can be written as
 \begin{center}
 	\begin{minipage}{8.8cm}
@@ -131,9 +136,10 @@ The pseudo code for our exponential search can be written as
 
 			\State{$i = 1$}
 			\While{$A[i] < y$}
-			\State{$i = i\cdot2$}
+			\State{$i = 2 \cdot i$}
 			\EndWhile
-			\State{\Return{i}}
+			\State{$low, high = i/2, i$} \Comment{invariant: $A[low]<y \leq A[high]$}
+			\State{\Return{low, high}}
 			\EndProcedure
 		\end{algorithmic}
 	\end{minipage}
@@ -142,28 +148,35 @@ The pseudo code for our exponential search can be written as
 This algorithm works because our list $A$ is a sorted list, so when a element of the list is less than an element at index $i$, then our element must be present before $i$, if our element is contained in $A$.
 We have therefore with our algorithm found a subset of $A$ which is of finite length and we can therefore use a search algorithm such as binary search, which is much more performant that linear search.
 
+
+
+
+
 \subsection*{Phase 2: Binary search}
 In phase 1 we found a subset $B$ whose largest element is greater or equal to $y$. We therefore know that if the element $y$ is contained in the infinite list $A$ then $B$ must contain it (because $A$ is a sorted list). We can therefore perform a binary search on $B$ and find $y$ if it is contained.
 % In the exponential search the value $k$ as a function of of $d$ is determined, and this marks the lower and upper bound that needs to be searched in the binary search.
 
+
+
+
+
+%
+% BINARY SEARCH: PSEUDO CODE
+%
 \begin{center}
 	\begin{minipage}{8.8cm}
 		\begin{algorithmic}
-			\Procedure{BinarySearch}{$B[x_1,x_2,x_3,..., x_n], x$}
-
-			\State{$low = 1$}
-			\State{$high = |B|+1$}
-			\While{$low < high$}
+			\Procedure{BinarySearch}{$A,y,low,high$}
+			\While{$high - low > 1$}
 			\State{$mid = \lfloor(high + low)/2\rfloor$}
-			\If{$x=A[mid]$}
-			\State{\Return{$mid$}}
-			\ElsIf{$x<A[mid]$}
-			\State{$high = mid$}
-			\ElsIf{$x>A[mid]$}
+			\If{$A[mid] < y$}
 			\State{$low = mid$}
+			\Else
+			\State{$high = mid$}
 			\EndIf
 			\EndWhile
-			\State{\Return{$-1$}}
+			\State{\Return{$high$}}
+
 
 			\EndProcedure
 		\end{algorithmic}
@@ -172,6 +185,10 @@ In phase 1 we found a subset $B$ whose largest element is greater or equal to $y
 
 And our visual invariant for binary search would be
 
+
+%
+% BINARY SEARCH: INVARIANT
+%
 \begin{center}
 	%\includegraphics[width=8cm]{whiteboard.jpg}
 	\begin{tabular}{ccccccccccccc}
@@ -203,6 +220,11 @@ Our binary search algorithm works because we give it a finite sorted list $B$. W
 \newpage
 \subsection*{The combined algorithm}
 Our combined pseudo code would be written as
+
+
+%
+% COMBINED: PSEUDO CODE
+%
 \begin{center}
 	\begin{minipage}{8.8cm}
 		\begin{algorithmic}
