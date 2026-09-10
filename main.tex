@@ -256,7 +256,7 @@ Our combined pseudo code would be written as
 
 It follows that the efficiency of the algorithm is dependent on the index $d$ of our wanted element $y$.
 The two phases of our algorithm have different efficiencies.
-The probe indices from phase one are $1 \rightarrow 2 \rightarrow 4 \rightarrow 8 \rightarrow ...$, i.e $2^k$ where $k$ is the number of doublings.
+The probe indices from phase one are $1 \rightarrow 2 \rightarrow 4 \rightarrow 8 \rightarrow ...$, i.e. $2^k$ where $k$ is the number of doublings.
 Our algorithm checks for $d\leq2^k$ and we can therefore solve for $k$ using a logarithm $\log_2{d}\leq k$.
 The number of iterations given by index $d$ is therefore $\lceil \log_2{d}\rceil=k$.
 
