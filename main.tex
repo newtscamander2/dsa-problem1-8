@@ -255,19 +255,23 @@ Our combined pseudo code would be written as
 \end{center}
 
 It follows that the efficiency of the algorithm is dependent on the index $d$ of our wanted element $y$.
-The two phases of our algorithm have different efficiencies.
 The probe indices from phase one are $1 \rightarrow 2 \rightarrow 4 \rightarrow 8 \rightarrow ...$, i.e. $2^k$ where $k$ is the number of doublings.
-Our algorithm checks for $d\leq2^k$ and we can therefore solve for $k$ using a logarithm $\log_2{d}\leq k$.
-The number of iterations given by index $d$ is therefore $\lceil \log_2{d}\rceil=k$.
+
+Our algorithm checks for $y \leq A[2^k]$ and stops at the first such $k$, which means that $2^{k-1}<d \leq 2^k$, and we can therefore solve for $k$ using a logarithm $k-1 < \log_2{d}\leq k$.
+The number of doublings given by index $d$ is therefore $\lceil \log_2{d}\rceil=k$. Phase 1 therefore performs $k+1$ comparisons, one per probe.
 
 The second phase of our search is a binary search between the last index $2^{k-1}$ and the current index from phase 1 $2^{k}$.
 The interval size is therefore $2^{k} - 2^{k-1}$.
 This can be simplified to $2^{k-1}$.
-From \textcite{SupplementaryADS} \textbf{Theorem 6} we know that the worst case optimality of binary search can be calculated from $\lceil\log_2{(n+1)}\rceil$ where $n = 2^{k-1}$.
+From \textcite{SupplementaryADS} \textbf{Theorem 6} any comparison among (first) $2^k$ elements requires at least $\lceil\log_2{(n+1)}\rceil$ where $n = 2^{k-1}$.
 We know from phase one that $k = \lceil \log_2{d}\rceil$, and therefore $n = 2^{\lceil \log_2{d}\rceil-1}$
 
-We can now combine our two equations for iterations into one equation of how many iterations are run as a worst case as a function of $d$.
-$$f(d)=\lceil \log_2{(d)} \rceil + \lceil\log_2{(2^{\lceil \log_2{d}\rceil-1}+1)}\rceil$$
+We can now combine our two equations for iterations into one equation of how many comparisons are performed as a function of $d$.
+
+\begin{equation}
+	f(d)=\lceil \log_2{(d)} \rceil + \lceil\log_2{(2^{\lceil \log_2{d}\rceil-1}+1)}\rceil
+\end{equation}
+
 
 \noindent\begin{tcolorbox}[breakable, toprule at break=0pt,bottomrule at break=0pt, colback={blue!5!white}, colframe={black!70!white}, arc={0mm}]
 	To verify that our function for calculating how many iterations there are is correct, we'll go through a simple example of the algorithm.
