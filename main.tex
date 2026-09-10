@@ -176,8 +176,6 @@ In phase 1 we found a subset $B$ whose largest element is greater or equal to $y
 			\EndIf
 			\EndWhile
 			\State{\Return{$high$}}
-
-
 			\EndProcedure
 		\end{algorithmic}
 	\end{minipage}
@@ -230,15 +228,16 @@ Our combined pseudo code would be written as
 		\begin{algorithmic}
 			\Procedure{Search}{$A[x_1,x_2,x_3,..., x_{\infty}], x$}
 
-			\Comment{Phase 1. Exponential search}
-
-			\State{$low, high = 0, 1$}
-			\While{$high < y$}
-			\State{$low = high$}
-			\State{$high = high \cdot 2$}
+			\State{\#Phase 1. Exponential search}
+			\State{$i = 1$}
+			\While{$A[i] < y$}
+			\State{$i = 2 \cdot i$}
 			\EndWhile
+			\State{$low, high = i/2, i$} \Comment{invariant: $A[low]<y \leq A[high]$}
 
-			\Comment{Phase 2. Binary search}
+
+			\vspace{5mm}
+			\State{\#Phase 2. Binary search}
 			\State{$high = high + 1$}
 			\While{$low < high$}
 			\State{$mid = \lfloor(high + low)/2\rfloor$}
