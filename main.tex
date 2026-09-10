@@ -145,7 +145,8 @@ The pseudo code for our exponential search can be written as
 	\end{minipage}
 \end{center}
 
-This algorithm works because our list $A$ is a sorted list, so when a element of the list is less than an element at index $i$, then our element must be present before $i$, if our element is contained in $A$.
+This algorithm works because our list $A$ is a sorted list. The while loop stops at the fist index $i$ with $y \leq A[i]$. The previous probe gave us $A[i/2] < y$. This means that $A[low] <y \leq A[high]$ for $low, high = i/2, i$. Because the exercise has given us $y >x_1 = A[1]$ then the loop body runs at least once. Hence $i \geq 2$ and $low=i/2 \geq 1 = $ valid index.
+
 We have therefore with our algorithm found a subset of $A$ which is of finite length, and we can therefore use a search algorithm such as binary search, which is much more performant than linear search.
 
 
@@ -263,8 +264,10 @@ The number of doublings given by index $d$ is therefore $\lceil \log_2{d}\rceil=
 The second phase of our search is a binary search between the last index $2^{k-1}$ and the current index from phase 1 $2^{k}$.
 The interval size is therefore $2^{k} - 2^{k-1}$.
 This can be simplified to $2^{k-1}$.
-From \textcite{SupplementaryADS} \textbf{Theorem 6} any comparison among (first) $2^k$ elements requires at least $\lceil\log_2{(n+1)}\rceil$ where $n = 2^{k-1}$.
-We know from phase one that $k = \lceil \log_2{d}\rceil$, and therefore $n = 2^{\lceil \log_2{d}\rceil-1}$
+
+Every iteration does perform exactly one comparison $A[mid] < y$, and then it halves the interval such that phase 2 does perform $\log_2{2^{k-1}} = k-1$ comparisons.
+
+From \textcite{SupplementaryADS} \textbf{Theorem 6} any comparison based search among the first $2^k$ elements requires at least $\lceil\log_2{(2^k+1)}\rceil$ $=k+1$ comparisons in the worst case. This means that the total is roughly within a factor of two of optimål.
 
 We can now combine our two equations into one equation of how many comparisons are performed as a function of $d$.
 
