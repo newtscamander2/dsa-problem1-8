@@ -57,7 +57,7 @@
 \end{exercise}
 
 \section*{Comment}
-To find the index $d$ of a real value $y$ in an infinite long increasing sequence of real values $A=\{x_1 < x_2<x_3...\}$, a two-phased approach with both exponential search and binary search is performed due to an unknown upper bound for $A$. For the created algorithm it is assumed that the maximum value of $A$ cannot be accessed, otherwise a single-phased binary search algorithm would be sufficient to find $d$.
+To find the index $d$ of a real value $y$ in an infinite long increasing sequence of real values $A=\{x_1 < x_2<x_3...\}$, a two-phased approach with both exponential search and binary search is performed due to an unknown upper bound for $A$. For the created algorithm it is assumed that the maximum value of $A$ cannot be accessed, otherwise a single-phased binary search algorithm would be sufficient to find $d$ based on $y$.
 
 \section*{Our solution}
 A simple (and quite effective) solution is to split the problem into two phases phase 1) determining a subset $B$ so $B \subseteq A$ using a exponential "doubling" technique and phase 2) doing binary search on $B$.
