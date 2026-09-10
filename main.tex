@@ -132,14 +132,14 @@ The pseudo code for our exponential search can be written as
 \begin{center}
 	\begin{minipage}{8.8cm}
 		\begin{algorithmic}
-			\Procedure{ExponentialSearch}{$A[x_1,x_2,x_3,..., x_{\infty}], x$}
+			\Procedure{ExponentialSearch}{$A, y$}
 
 			\State{$i = 1$}
 			\While{$A[i] < y$}
 			\State{$i = 2 \cdot i$}
 			\EndWhile
-			\State{$low, high = i/2, i$} \Comment{invariant: $A[low]<y \leq A[high]$}
-			\State{\Return{low, high}}
+			\State{$low, high = i/2, i$} \Comment{$A[low]<y \leq A[high]$}
+			\State{\Return{$low, high$}}
 			\EndProcedure
 		\end{algorithmic}
 	\end{minipage}
@@ -233,23 +233,20 @@ Our combined pseudo code would be written as
 			\While{$A[i] < y$}
 			\State{$i = 2 \cdot i$}
 			\EndWhile
-			\State{$low, high = i/2, i$} \Comment{invariant: $A[low]<y \leq A[high]$}
-
+			\State{$low, high = i/2, i$} \Comment{$A[low]<y \leq A[high]$}
 
 			\vspace{5mm}
+
 			\State{\#Phase 2. Binary search}
-			\State{$high = high + 1$}
-			\While{$low < high$}
+			\While{$high - low > 1$}
 			\State{$mid = \lfloor(high + low)/2\rfloor$}
-			\If{$x=A[mid]$}
-			\State{\Return{$mid$}}
-			\ElsIf{$x<A[mid]$}
-			\State{$high = mid$}
-			\ElsIf{$x>A[mid]$}
+			\If{$A[mid] < y$}
 			\State{$low = mid$}
+			\Else
+			\State{$high = mid$}
 			\EndIf
 			\EndWhile
-			\State{\Return{$-1$}}
+			\State{\Return{$high$}}
 
 
 			\EndProcedure
