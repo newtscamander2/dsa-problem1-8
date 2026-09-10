@@ -150,9 +150,6 @@ This algorithm works because our list $A$ is a sorted list. The while loop stops
 We have therefore with our algorithm found a subset of $A$ which is of finite length, and we can therefore use a search algorithm such as binary search, which is much more performant than linear search.
 
 
-
-
-
 \subsection*{Phase 2: Binary search}
 In phase 1 we found a subset $B$ whose largest element is greater or equal to $y$. We therefore know that if the element $y$ is contained in the infinite list $A$ then $B$ must contain it (because $A$ is a sorted list). We can therefore perform a binary search on $B$ and find $y$ if it is contained.
 % In the exponential search the value $k$ as a function of of $d$ is determined, and this marks the lower and upper bound that needs to be searched in the binary search.
@@ -213,7 +210,8 @@ And our visual invariant for binary search would be
 	\end{tabular}
 
 \end{center}
-Our binary search algorithm works because we give it a finite sorted list $B$. When searching we check whether our wanted number $y$ is greater or lower than our middle point. This way we work towards our wanted number $y$ if it exists in our list $B$ and our original list $A$. If we didn't use a list with a finite amount of elements (like trying to do binary search on our original list $A$) then it would simply not be possible, because we would not have a index for $high$ to start with.
+Our binary search algorithm works because we give it a finite sorted list $B$, together with the invariant $A[low] < y \leq A[high]$. In our if statement both branches preserve the invariant (which must be true und the entire program execution). $if A[mid] <y$ then $low = mid$ keeps $A[low] < y$. Otherwise $y \leq A[mid]$ such that $high = mid$ keeps $y \leq A[high]$. Every iteration halves $high-low$ (because of the exponent). The loop therefore ends with $high = low + 1$, e.g. $x_{high-1} < y \leq  x_{high}$ such that $high=d$, no matter if $y$ occurs in the sequence of real values $A$. If we tried to make a binary search in the original list it would not have been possible because we wouldn't have an index for $high$ variable to start with.
+
 
 
 \newpage
