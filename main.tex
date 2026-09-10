@@ -57,10 +57,10 @@
 \end{exercise}
 
 \section*{Comment}
-	To find a number at index $d$ in an infinitely long list, we search using binary search. But we don't know the upper bound, and we don't want to search the whole lower bound.
-	So we make 2 phases of the search. Phase 1, we find a lower bound and upper bound for where the number must be. By exponentially increasing the search interval, so if the number is higher we keep increasing it.
-	Phase 2, we search the interval we found in phase 1 using
-	binary search.
+To find a real value at index $d$ in an infinite long increasing sequence of real values, we search using binary search. But we don't know the upper bound, and we don't want to search the whole lower bound.
+So we make 2 phases of the search. Phase 1, we find a lower bound and upper bound for where the number must be. By exponentially increasing the search interval, so if the number is higher we keep increasing it.
+Phase 2, we search the interval we found in phase 1 using
+binary search.
 
 \section*{Our solution}
 A simple (and quite effective) solution is to split the problem into two phases phase 1) determining a subset $B$ so $B \subseteq A$ using a exponential "doubling" technique and phase 2) doing binary search on $B$.
