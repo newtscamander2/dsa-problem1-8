@@ -266,10 +266,10 @@ This can be simplified to $2^{k-1}$.
 From \textcite{SupplementaryADS} \textbf{Theorem 6} any comparison among (first) $2^k$ elements requires at least $\lceil\log_2{(n+1)}\rceil$ where $n = 2^{k-1}$.
 We know from phase one that $k = \lceil \log_2{d}\rceil$, and therefore $n = 2^{\lceil \log_2{d}\rceil-1}$
 
-We can now combine our two equations for iterations into one equation of how many comparisons are performed as a function of $d$.
+We can now combine our two equations into one equation of how many comparisons are performed as a function of $d$.
 
 \begin{equation}
-	f(d)=\lceil \log_2{(d)} \rceil + \lceil\log_2{(2^{\lceil \log_2{d}\rceil-1}+1)}\rceil
+	f(d)=(k+1)+(k-1)=2k=2 \lceil \log_2{(d)} \rceil
 \end{equation}
 
 
@@ -307,7 +307,10 @@ We can now combine our two equations for iterations into one equation of how man
 	We've now performed $4$ iterations in phase 1 and $2$ iterations in phase 2. The total amount of iterations is therefore $6$.
 
 	We can now try to see what our function $f(d)$ returns for finding an element at index position $7$.
-	$$f(7)=\lceil \log_2{(7)} \rceil + \lceil\log_2{(2^{\lceil \log_2{7}\rceil-1}+1)}\rceil = 6$$
+
+	\begin{equation}
+		f(7)= 2\lceil \log_2{(7)} \rceil = 6
+	\end{equation}
 	So our pratical work through of the problem and our equation match up at $6$ iterations!
 
 \end{tcolorbox}
