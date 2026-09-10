@@ -212,7 +212,7 @@ And our visual invariant for binary search would be
 	\end{tabular}
 
 \end{center}
-Our binary search algorithm works because we give it a finite sorted list $B$. When searching we check whether our wanted number $y$ is greater or lower than our middle point. This way we work towards our wanted number $y$ if it exsists in our list $B$ and our original list $A$. If we didn't use a list with a finite amount of elements (like trying to do binary search on our original list $A$) then it would simply not be possible, because we would not have a index for $high$ to start with.
+Our binary search algorithm works because we give it a finite sorted list $B$. When searching we check whether our wanted number $y$ is greater or lower than our middle point. This way we work towards our wanted number $y$ if it exists in our list $B$ and our original list $A$. If we didn't use a list with a finite amount of elements (like trying to do binary search on our original list $A$) then it would simply not be possible, because we would not have a index for $high$ to start with.
 
 
 \newpage
@@ -228,7 +228,7 @@ Our combined pseudo code would be written as
 		\begin{algorithmic}
 			\Procedure{Search}{$A, y$}
 
-			\State{\#Phase 1. Exponential search}
+			\Comment{\Phase 1. Exponential search}
 			\State{$i = 1$}
 			\While{$A[i] < y$}
 			\State{$i = 2 \cdot i$}
@@ -237,7 +237,7 @@ Our combined pseudo code would be written as
 
 			\vspace{5mm}
 
-			\State{\#Phase 2. Binary search}
+			\Comment{\Phase 2. Binary search}
 			\While{$high - low > 1$}
 			\State{$mid = \lfloor(high + low)/2\rfloor$}
 			\If{$A[mid] < y$}
@@ -262,7 +262,7 @@ We can now combine our two equations for iterations into one equation of how man
 $$f(d)=\lceil \log_2{(d)} \rceil + \lceil\log_2{(2^{\lceil \log_2{d}\rceil-1}+1)}\rceil$$
 
 \noindent\begin{tcolorbox}[breakable, toprule at break=0pt,bottomrule at break=0pt, colback={blue!5!white}, colframe={black!70!white}, arc={0mm}]
-	To verify that our function for calculating how many iterations are is correct we'll go through a simple example of the algorithm.
+	To verify that our function for calculating how many iterations there are is correct, we'll go through a simple example of the algorithm.
 
 	In this example we'll use the table
 	\begin{center}
@@ -294,7 +294,7 @@ $$f(d)=\lceil \log_2{(d)} \rceil + \lceil\log_2{(2^{\lceil \log_2{d}\rceil-1}+1)
 
 	We've now performed $4$ iterations in phase 1 and $2$ iterations in phase 2. The total amount of iterations is therefore $6$.
 
-	We can now  try to see what our function $f(d)$ returns for finding an element at index position $7$.
+	We can now try to see what our function $f(d)$ returns for finding an element at index position $7$.
 	$$f(7)=\lceil \log_2{(7)} \rceil + \lceil\log_2{(2^{\lceil \log_2{7}\rceil-1}+1)}\rceil = 6$$
 	So our pratical work through of the problem and our equation match up at $6$ iterations!
 
